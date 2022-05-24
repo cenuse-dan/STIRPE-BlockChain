@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1>Welcome back, {{session.get('username')}}</h1>
+{% include 'includes/_messages.html' %}
+<p></p>
+
+<p> Your current balance is {{ balance }} STIRPE</p>
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-chart-area"></i>
+    Price of STIRPE (STP)</div>
+  <div class="card-body">
+    <canvas id="myAreaChart" width="100%" height="30"></canvas>
+  </div>
+  <div class="card-footer small text-muted">Updated today at {{ct}}</div>
+</div>
+
+<!-- DataTables Example -->
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-table"></i>
+    Blockchain</div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Transaction</th>
+            <th>Hash</th>
+            <th>Sender</th>
+            <th>Recevier</th>
+            <th>Date</th>
+            <th>Sold</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>#</th>
+            <th>Transaction</th>
+            <th>Hash</th>
+            <th>Sender</th>
+            <th>Recevier</th>
+            <th>Date</th>
+            <th>Sold</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          {% for block in blockchain %}
+            <tr>
+              <td>{{block.id}}</td>
+              <td>{{block.tranzactie}}</td>
+              <td>{{block.hash()}}</td>
+              <td>{{tranzactie[blockchain.index(block)].expeditor_nume}}</td>
+              <td>{{tranzactie[blockchain.index(block)].receptor_nume}}</td>
+              <td>{{tranzactie[blockchain.index(block)].data_tranzactie}}</td>
+              <td>{{tranzactie[blockchain.index(block)].sold_tranzactie}}</td>
+              {% endfor %}
+        </tr>
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer small text-muted">Updated today at {{ct}}</div>
+</div>
+{% endblock %}
